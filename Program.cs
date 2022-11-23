@@ -1,39 +1,35 @@
-
+using FruitTracker.Model;
+using FruitTracker.Data;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.UseDefaultFiles();
-app.UseStaticFiles();
-
-var fruits = new List<Fruit>();
-
-// var routes = new Routes();
-
-app.MapGet("/api/fruit/{fruitName}", (string fruitName) => {
-
-    var fruit = fruits.Find(fruit => fruit.Name == fruitName);
-    return  Results.Ok(fruit);
-
-});
+FruitDb fruitDb = new FruitDb();
 
 app.MapGet("/api/fruits", () => {
-    return Results.Ok(fruits);
+    return  Results.Ok(fruitDb.GetFruits());
 });
 
-app.MapPost("/api/fruit", (Fruit input) => {
+// app.MapGet("/api/fruits/{id}", (int id) => {
+//     return Results.Ok(fruitDb.GetFruits().Find(o => o.Id == id));
+// });
 
-    var fruit = fruits.Find(fruit => fruit.Name == input.Name);
+app.MapPost("/api/fruits", (Fruit input) => {
+
+    var fruit = fruitDb.GetFruits().Find(fruit => fruit.Name == input.Name);
 
     if (fruit == null) {
-        fruits.Add(new Fruit(input.Name));
+        fruitDb.AddFruit(input.Name!);
     } else {
-        fruit.Increment();
+        fruit.Count++;
     }
 
-    return Results.Ok(fruit);
+    return Results.Created($"api/fruits/{input.Id}", input);
 });
 
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.Run();
