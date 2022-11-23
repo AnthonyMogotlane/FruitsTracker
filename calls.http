@@ -1,0 +1,22 @@
+POST https://localhost:7270/api/fruit HTTP/1.1
+content-type: application/json
+
+{
+    "name": "apple"
+}
+
+###
+POST https://localhost:7270/api/fruit HTTP/1.1
+content-type: application/json
+
+{
+    "name": "orange"
+}
+
+###
+
+GET https://localhost:7270/api/fruit/orange
+
+###
+
+GET https://localhost:7270/api/fruits
