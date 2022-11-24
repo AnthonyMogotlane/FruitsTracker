@@ -5,12 +5,20 @@ public class FruitDb
 {
     List<Fruit> Fruits { get; set; }
 
-    public FruitDb() => Fruits = new List<Fruit>(){new Fruit("orange")};
+    public FruitDb() => Fruits = new List<Fruit>(){};
 
     public void AddFruit(string name) 
     {
-        Fruits.Add(new Fruit(name));
-    } 
+        var fruit = Fruits.Find(o => o.Name == name);
+        if(fruit == null)
+            Fruits.Add(new Fruit(name));
+        else
+            fruit.Count++;
+    }
+
+    public Fruit GetName(string name) => Fruits.Find(o => o.Name == name)!;
+
+    public void RemoveName(string name) => Fruits.Remove(Fruits.Find(o => o.Name == name)!);
 
     public List<Fruit> GetFruits() => Fruits;
 
