@@ -22,4 +22,14 @@ public class FruitDb
 
     public List<Fruit> GetFruits() => Fruits;
 
+    public void UpdateFruit(string name, Fruit fruit)
+    {
+        var curFruit = Fruits.Find(o => o.Name == name);
+        if(fruit != null) {
+            fruit.Name = name;
+            fruit.Count = fruit.Count;
+        }
+
+    }
+
 }
