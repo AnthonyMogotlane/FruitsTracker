@@ -6,16 +6,8 @@ content-type: application/json
 }
 
 ###
-POST https://localhost:7270/api/fruits HTTP/1.1
-content-type: application/json
-{
-    "name": "orange"
-}
-
-###
-
-GET https://localhost:7270/api/fruit
-
-###
-
 GET https://localhost:7270/api/fruits
+###
+GET https://localhost:7270/api/fruits/apple
+###
+DELETE https://localhost:7270/api/fruits/apple
