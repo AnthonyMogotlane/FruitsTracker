@@ -24,8 +24,17 @@ app.MapPost("/api/fruits", (Fruit fruit) => {
 });
 
 app.MapDelete("/api/fruits/{name}", (string name) => {
+    var fruit = fruitDb.GetFruits().Find(o => o.Name == name);
     fruitDb.RemoveName(name);
-    return Results.Ok();
+    return Results.Ok(fruit);
+});
+
+app.MapPut("/api/fruits/{name}", (string name, Fruit fruit) => {
+
+    fruitDb.UpdateFruit(name, fruit);
+    System.Console.WriteLine($"{fruit.Name}: {fruit.Count}");
+
+    return Results.NoContent();
 });
 
 app.UseDefaultFiles();
