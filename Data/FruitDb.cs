@@ -26,8 +26,8 @@ public class FruitDb
     {
         var curFruit = Fruits.Find(o => o.Name == name);
         if(fruit != null) {
-            fruit.Name = name;
-            fruit.Count = fruit.Count;
+            curFruit!.Name = fruit.Name;
+            curFruit.Count = fruit.Count;
         }
 
     }
