@@ -16,19 +16,22 @@
     <div class="container">
         <h1 class="text-center my-5">Fruits Tracker App</h1>
         <div class="row d-flex justify-content-center">
-            <div class="col-6 pt-3">
+            <div class="col-12 col-md-8 col-lg-6 pt-3">
                 <div class="card p-3">
                     <div class="d-flex">
-                        <form action="javascript:void(0);" class="text-center pb-3 d-flex justify-content-center " method="POST" onsubmit="addFruit()">
+                        <form action="javascript:void(0);" class="text-center pb-3 d-flex justify-content-center "
+                            method="POST" onsubmit="addFruit()">
                             <input type="text" name="fruit" class="fruit-input h-100 w-100" placeholder="Add Fruit">
                             <input type="submit" class="btn btn-success mx-1" value="Add">
                         </form>
-                        <form action="javascript:void(0);" class="text-center pb-3 d-flex justify-content-center" method="GET" onsubmit="searchFruit()">
-                            <input type="text" name="fruitSearch" class="fruit-search h-100 w-100" placeholder="Search Fruit">
+                        <form action="javascript:void(0);" class="text-center pb-3 d-flex justify-content-center"
+                            method="GET" onsubmit="searchFruit()">
+                            <input type="text" name="fruitSearch" class="fruit-search h-100 w-100"
+                                placeholder="Search Fruit">
                             <input type="submit" class="btn btn-dark mx-1" value="Search">
                         </form>
                     </div>
-            
+
                     <table class="table text-nowrqp table-light rounded">
                         <thead>
                             <tr>
@@ -40,6 +43,15 @@
                         </thead>
                         <tbody class="fruits"></tbody>
                     </table>
+                </div>
+
+                <div id="editForm" class="card p-2">
+                    <form action="javascript:void(0);" onsubmit="updateItem()">
+                        <input type="text" id="edit-name">
+                        <input type="number" id="edit-count">
+                        <input type="submit" value="Update" class="btn btn-dark">
+                        <a onclick="closeInput()" aria-label="Close">&#10006;</a>
+                    </form>
                 </div>
             </div>
         </div>

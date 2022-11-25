@@ -27,10 +27,13 @@ const addFruit = () => {
       .then((res) => res.json())
       .then(() => {
         getFruits();
-        inputAdd.value = "";
       })
       .catch((err) => console.error("Unable to add fruit.", err));
+      
+      inputAdd.value = "";
+
   }
+
 };
 
 const removeFruit = (name) => {
@@ -43,11 +46,50 @@ const removeFruit = (name) => {
 
 const searchFruit = () => {
   const name = document.querySelector(".fruit-search").value;
-  fetch(`${url}/${name}`)
-    .then((res) => res.json())
-    .then((data) => displayFruits([data]))
-    .catch((err) => console.error("Unable to delete fruit.", err));
+  if(name.trim() != "") {
+    fetch(`${url}/${name}`)
+      .then((res) => res.json())
+      .then((data) => displayFruits([data]))
+      .catch((err) => console.error("Unable to delete fruit.", err));
+  }
 };
+
+const displayEditForm = (name) => {
+    const fruit = fruitsList.find(e => e.name === name);
+
+    document.querySelector('#edit-name').value = fruit.name;
+    document.querySelector('#edit-count').value = fruit.count;
+    document.querySelector('#editForm').style.display = 'block';
+}
+
+const updateItem = () => {
+  const name = document.querySelector('#edit-name').value;
+
+  const fruit = {
+    name : name.trim(),
+    count: parseInt(document.querySelector('#edit-count').value.trim())
+  };
+
+  console.log(fruit);
+
+  fetch(`${url}/${name}`, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(fruit)
+  })
+  .then(() => getFruits())
+  .catch(error => console.error('Unable to update item.', error));
+
+  closeInput();
+
+  return false;
+}
+
+const closeInput = () => document.querySelector('#editForm').style.display = 'none';
+
 
 function displayFruits(data) {
   const fruits = document.querySelector(".fruits");
@@ -58,10 +100,11 @@ function displayFruits(data) {
         <td>${fruit.name}</td>
         <td>${fruit.count}</td>
         <td><button class="btn btn-danger" onclick="removeFruit('${fruit.name}')">Remove</button></td>
-        <td><button class="btn btn-primary">Edit</button></td>
+        <td><button class="btn btn-primary" onclick="displayEditForm('${fruit.name}')">Edit</button></td>
       </tr>`;
   });
 
   fruitsList = data;
+  console.log(fruitsList)
 }
 getFruits();
