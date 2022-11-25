@@ -32,8 +32,6 @@ app.MapDelete("/api/fruits/{name}", (string name) => {
 app.MapPut("/api/fruits/{name}", (string name, Fruit fruit) => {
 
     fruitDb.UpdateFruit(name, fruit);
-    System.Console.WriteLine($"{fruit.Name}: {fruit.Count}");
-
     return Results.NoContent();
 });
 
